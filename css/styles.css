@@ -75,10 +75,11 @@ li {
 /* displayed color code */
 li span {
     background-color: #444444;
-    width: 120px;
+    width: 140px;
     height: 50px;
-    border-radius: 20px;
+    border-radius: 16px;
     font-weight: bold;
+    letter-spacing: 2px;
 
     display: flex;
     flex-direction: row;

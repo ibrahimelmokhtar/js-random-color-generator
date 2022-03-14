@@ -60,7 +60,7 @@ const generateSingleColor = () => {
  */
 const generateColorPalette = (event) => {
     // spacebar is pressed:
-    if (event.keyCode === 32) {
+    if (event.keyCode === 32 || event === 'null') {
         // clear the generated palette:
         generatedPalette = [];
 
@@ -77,6 +77,9 @@ const generateColorPalette = (event) => {
 
 // entry point:
 document.addEventListener('DOMContentLoaded', () => {
+    // generate initial color palette:
+    generateColorPalette('null');
+
     // spacebar event listener:
     document.addEventListener('keyup', generateColorPalette);
 });
