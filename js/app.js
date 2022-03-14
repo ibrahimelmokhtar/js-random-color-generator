@@ -5,9 +5,65 @@ const hexCharacterArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e'
 // generated palette:
 let generatedPalette = [];
 
+// number of displayed colors:
+let numberOfColorsDisplayed = 6;
+
 // obtain required DOM elements:
 const displayedListObject = document.querySelector('#generated__list');
 const copiedMessageObject = document.querySelector('#copied');
+
+
+/**
+ * @description Show specific message for the user.
+ * @param {String} message
+ * @param {String} textColor
+ */
+const showMessage = (message, textColor) => {
+    // modify the displayed message style:
+    copiedMessageObject.textContent = message;
+    copiedMessageObject.style.color = textColor;
+    copiedMessageObject.style.bottom = '50%';
+
+    // fade out the displayed message after specific time interval:
+    setTimeout(() => {
+        copiedMessageObject.style.bottom = '-100%';
+    }, 2000);
+};
+
+
+/**
+ * @description Remove specific color from the displayed palette.
+ * @param {Event} event
+ */
+const removeColor = (event) => {
+    // check the clicked icon:
+    if ((event.target.nodeName === 'I') && (event.target.classList.contains('fa-times'))) {
+        // check the number of the displayed colors:
+        if (numberOfColorsDisplayed === 1) {
+            showMessage('Can NOT remove this last color ...', '#ff0000');
+        }
+
+        else {
+            // obtain the color code text:
+            const colorCode = event.target.parentElement.querySelector('span').textContent;
+
+            // update the total number of the displayed colors:
+            numberOfColorsDisplayed--;
+
+            // remove specific color:
+            for (let i=0; i<generatedPalette.length; i++) {
+                if (generatedPalette[i] === colorCode) {
+                    generatedPalette.splice(i, 1);
+                    break;
+                }
+            }
+
+            // update the color palette:
+            displayPalette();
+        }
+    }
+};
+
 
 
 /**
@@ -18,19 +74,13 @@ const copyToClipboard = (event) => {
     // check the clicked icon:
     if ((event.target.nodeName === 'I') && (event.target.classList.contains('fa-clone'))) {
         // obtain the color code text:
-        const text = event.target.parentElement.querySelector('span').textContent;
+        const textColor = event.target.parentElement.querySelector('span').textContent;
 
         // copy text to clipboard:
-        navigator.clipboard.writeText(text);
+        navigator.clipboard.writeText(textColor);
 
-        // modify the displayed message style:
-        copiedMessageObject.style.color = text;
-        copiedMessageObject.style.bottom = '50%';
-
-        // fade out the displayed message after specific time interval:
-        setTimeout(() => {
-            copiedMessageObject.style.bottom = '-100%';
-        }, 2000);
+        // show specific message to the user:
+        showMessage('Color copied to clipboard!', textColor);
     }
 };
 
@@ -47,6 +97,7 @@ const displayPalette = () => {
         // create required elements:
         const singleColorObject = document.createElement('li');
         singleColorObject.innerHTML = `
+            <i class="fas fa-times" title="Remove color"></i>
             <i class="far fa-clone" title="Copy to clipboard"></i>
             <span></span>`;
 
@@ -54,6 +105,8 @@ const displayPalette = () => {
         singleColorObject.querySelector('span').textContent = generatedPalette[i];
         singleColorObject.style.color = generatedPalette[i];
         singleColorObject.style.backgroundColor = generatedPalette[i];
+        singleColorObject.style.width = `calc(100% / ${numberOfColorsDisplayed})`;
+
 
         // append the color to the virtual object:
         fragment.appendChild(singleColorObject);
@@ -82,7 +135,7 @@ const generateSingleColor = () => {
 
 
 /**
- * @description Generate SIX random color codes when SPACEBAR is pressed.
+ * @description Generate random color codes when SPACEBAR is pressed.
  * @param {Event} event
  */
 const generateColorPalette = (event) => {
@@ -92,8 +145,8 @@ const generateColorPalette = (event) => {
         generatedPalette = [];
         copiedMessageObject.style.bottom = '-100%';
 
-        // generate SIX random colors:
-        for (let i=0; i<6; i++) {
+        // generate random colors:
+        for (let i=0; i<numberOfColorsDisplayed; i++) {
             generatedPalette.push(generateSingleColor());
         }
 
@@ -113,4 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // copy to clipboard:
     displayedListObject.addEventListener('click', copyToClipboard);
+
+    // remove specific color:
+    displayedListObject.addEventListener('click', removeColor);
 });
