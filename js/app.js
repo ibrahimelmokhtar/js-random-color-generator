@@ -7,6 +7,40 @@ let generatedPalette = [];
 
 
 /**
+ * @description Display the generated palette on the screen.
+ */
+const displayPalette = () => {
+    // obtain required DOM elements:
+    const displayedListObject = document.querySelector('#generated__list');
+
+    // create virtual DOM element:
+    const fragment = document.createDocumentFragment();
+
+    // create the displayed <li> elements:
+    for (let i=0; i<generatedPalette.length; i++) {
+        // create required elements:
+        const singleColorObject = document.createElement('li');
+        const singleColorTextObject = document.createElement('span');
+        singleColorObject.appendChild(singleColorTextObject);
+
+        // set the values to the current color value:
+        singleColorTextObject.textContent = generatedPalette[i];
+        singleColorTextObject.style.color = generatedPalette[i];
+        singleColorObject.style.backgroundColor = generatedPalette[i];
+
+        // append the color to the virtual object:
+        fragment.appendChild(singleColorObject);
+    }
+
+    // clear the displayed palette:
+    displayedListObject.innerHTML = '';
+
+    // append the vistual object to the actual palette list:
+    displayedListObject.appendChild(fragment);
+};
+
+
+/**
  * @description Generate single/random color code in HEX format.
  * @returns {String} generated color code
  */
@@ -18,7 +52,6 @@ const generateSingleColor = () => {
     }
     return generatedColor;
 };
-
 
 
 /**
@@ -35,7 +68,9 @@ const generateColorPalette = (event) => {
         for (let i=0; i<6; i++) {
             generatedPalette.push(generateSingleColor());
         }
-        console.log(generatedPalette);
+
+        // display generated palette:
+        displayPalette();
     }
 };
 
