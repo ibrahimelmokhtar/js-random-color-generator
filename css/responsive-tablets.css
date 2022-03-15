@@ -1,0 +1,44 @@
+/* Tablet devices */
+@media screen and (min-width: 670px) and (max-width: 1023px) {
+    header {
+        justify-content: space-around;
+    }
+
+
+    /* header main elements */
+    header h1 {
+        font-size: 26pt;
+    }
+
+
+    header button {
+        font-size: 18pt;
+    }
+
+
+    /* single color code */
+    li {
+        padding-bottom: 100px;
+    }
+
+
+    /* icon inside the color palette */
+    li i {
+        font-size: 22pt;
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+
+
+    /* displayed color code */
+    li span {
+        padding: 5px 10px;
+        margin-top: 100px;
+    }
+
+
+    /* copied message */
+    #copied {
+        font-size: 18pt;
+    }
+}
