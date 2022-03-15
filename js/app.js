@@ -9,6 +9,7 @@ let generatedPalette = [];
 let numberOfColorsDisplayed = 6;
 
 // obtain required DOM elements:
+const generateBtnObject = document.querySelector('header button');
 const displayedListObject = document.querySelector('#generated__list');
 const copiedMessageObject = document.querySelector('#copied');
 
@@ -163,6 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // spacebar event listener:
     document.addEventListener('keyup', generateColorPalette);
+
+    // generate button event listener:
+    generateBtnObject.addEventListener('click', () => {
+        generateColorPalette('null');
+    });
 
     // copy to clipboard:
     displayedListObject.addEventListener('click', copyToClipboard);

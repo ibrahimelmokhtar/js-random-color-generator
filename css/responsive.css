@@ -1,0 +1,76 @@
+/* Smartphone and Tablet devices */
+@media screen and (max-width: 1023px) {
+    /* page header */
+    header {
+        height: 25vh;
+        justify-content: center;
+    }
+
+
+    /* header main elements */
+    header h1 {
+        font-size: 14pt;
+    }
+
+
+    header button {
+        margin-top: 5px;
+        font-size: 12pt;
+        padding: 5px 10px ;
+        font-weight: 600;
+        border: 2px solid #eeeeee;
+        background-color: #eeeeee;
+        color: #111111;
+        border-radius: 10px;
+        display: inline-flex;
+    }
+
+
+    header button:hover {
+        cursor: pointer;
+        background-color: #111111;
+        color: #eeeeee;
+    }
+
+
+    header div {
+        display: none;
+    }
+
+
+    /* generated color palette */
+    #generated__list {
+        height: 75vh;
+    }
+
+
+    /* single color code */
+    li {
+        padding-bottom: 60px;
+    }
+
+
+    /* icon inside the color palette */
+    li i {
+        font-size: 20pt;
+        padding: 0;
+        margin-bottom: 5px;
+    }
+
+
+    /* displayed color code */
+    li span {
+        height: fit-content;
+        padding: 5px;
+        margin-top: 60px;
+        letter-spacing: 1px;
+        transform: rotate(-90deg);
+    }
+
+
+    /* copied message */
+    #copied {
+        font-size: 14pt;
+        width: fit-content;
+    }
+}

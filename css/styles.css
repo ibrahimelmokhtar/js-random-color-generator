@@ -37,6 +37,11 @@ header div {
 }
 
 
+header button {
+    display: none;
+}
+
+
 header div {
     font-size: 16pt;
 }
